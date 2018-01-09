@@ -25,7 +25,9 @@
         <activity android:name=".activities.UsersListActivity" />
         <activity android:name=".activities.Splash" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.StudRegister"></activity>
+        <activity android:name=".activities.StudRegister" />
+        <activity android:name=".activities.StudLogin" />
+        <activity android:name=".activities.Trial"></activity>
     </application>
 
 </manifest>

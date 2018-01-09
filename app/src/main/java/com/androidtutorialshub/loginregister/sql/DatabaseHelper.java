@@ -16,28 +16,25 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by lalit on 9/12/2016.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "UserManager.db"; // Database Name
 
-    private static final String TABLE_USER = "user"; // User table name
-    private static final String COLUMN_USER_ID = "user_id";   // User Table Columns names
-    private static final String COLUMN_USER_NAME = "user_name";
-    private static final String COLUMN_USER_UNAME = "user_uname";
-    private static final String COLUMN_USER_EMAIL = "user_email";
-    private static final String COLUMN_USER_PASSWORD = "user_password";
+    public static final String TABLE_USER = "user"; // User table name
+    public static final String COLUMN_USER_ID = "user_id";   // User Table Columns names
+    public static final String COLUMN_USER_NAME = "user_name";
+    public static final String COLUMN_USER_UNAME = "user_uname";
+    public static final String COLUMN_USER_EMAIL = "user_email";
+    public static final String COLUMN_USER_PASSWORD = "user_password";
 
-    private static final String TABLE_STUD = "studuser";
-    private static final String COLUMN_STUD_SID = "stud_id";
-    private static final String COLUMN_STUD_SNAME = "stud_name";
-    private static final String COLUMN_STUD_SUNAME = "stud_uname";
-    private static final String COLUMN_STUD_SEMAIL = "stud_email";
-    private static final String COLUMN_STUD_SPASSWORD = "stud_password";
+    public static final String TABLE_STUD = "studuser";
+    public static final String COLUMN_STUD_SID = "stud_id";
+    public static final String COLUMN_STUD_SNAME = "stud_name";
+    public static final String COLUMN_STUD_SUNAME = "stud_uname";
+    public static final String COLUMN_STUD_SEMAIL = "stud_email";
+    public static final String COLUMN_STUD_SPASSWORD = "stud_password";
 
 
     // create table sql query
@@ -48,12 +45,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_USER_EMAIL + " TEXT,"
             + COLUMN_USER_PASSWORD + " TEXT" + ")";
 
-    private String CREATE_STUD_TABLE = "CREATE TABLE" + TABLE_STUD + "("
-            + COLUMN_STUD_SID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_STUD_SNAME + "TEXT, "
-            + COLUMN_STUD_SUNAME + "TEXT, "
-            + COLUMN_STUD_SEMAIL + "TEXT, "
-            +COLUMN_STUD_SPASSWORD + "TEXT" + ")";
+    private String CREATE_STUD_TABLE = "CREATE TABLE " + TABLE_STUD + "("
+            + COLUMN_STUD_SID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_STUD_SNAME + " TEXT, "
+            + COLUMN_STUD_SUNAME + " TEXT, "
+            + COLUMN_STUD_SEMAIL + " TEXT, "
+            + COLUMN_STUD_SPASSWORD + "TEXT " + ")";
 
 /*
     private static DatabaseHelper instance; //ADDITION TONIGHT 6/1/18
@@ -63,51 +60,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             instance = new DatabaseHelper(context);
         return instance;
     }
-*/
     // drop table sql query
-
-    /* TRY KO TANGGALIN
+*/    //TRY KO TANGGALIN
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
     private String DROP_STUD_TABLE = "DROP TABLE IF EXISTS " + TABLE_STUD;
-*/
+
 
     /**
      * Constructor
-     * 
+     *
      * @param context
      */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
-        db.execSQL(CREATE_STUD_TABLE);}
-
+        db.execSQL(CREATE_STUD_TABLE);
+    }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG,
-                "Upgrading the database from version " + oldVersion + " to "+ newVersion);
+                "Upgrading the database from version " + oldVersion + " to " + newVersion);
         // clear all data
 
         //Drop User Table if exist
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUD);
-
+        db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_STUD_TABLE);
 
         // Create tables again
         onCreate(db);
 
     }
 
-    public DatabaseHelper(Context context, String name, CursorFactory factory,int version) {
+    public DatabaseHelper(Context context, String name, CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
-
 
     /**
      * This method is to create user record
@@ -128,14 +120,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addStudUser(StudUser studuser){
+    public void addStudUser(StudUser studUser){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_STUD_SNAME, studuser.getSname());
-        values.put(COLUMN_STUD_SUNAME, studuser.getSuname());
-        values.put(COLUMN_STUD_SEMAIL, studuser.getSemail());
-        values.put(COLUMN_STUD_SPASSWORD, studuser.getSpassword());
+        values.put(COLUMN_STUD_SNAME, studUser.getSname());
+        values.put(COLUMN_STUD_SUNAME, studUser.getSuname());
+        values.put(COLUMN_STUD_SEMAIL, studUser.getSemail());
+        values.put(COLUMN_STUD_SPASSWORD, studUser.getSpassword());
 
         db.insert(TABLE_STUD, null, values);
         db.close();
@@ -379,7 +371,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     //FOR STUDREGISTER... (TRIAL)
 
-     public boolean checkStudUser(String semail, String spassword) {
+    public boolean checkStudUser(String semail, String spassword) {
 
         // array of columns to fetch
         String[] columns = {
@@ -416,4 +408,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    }
+}
