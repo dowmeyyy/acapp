@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id = "@+id/join" android:title="Join Class" android:icon="@drawable/ic_create_black_24px"/>
+<item android:id = "@+id/custom" android:title="Customize Account" android:icon="@drawable/ic_settings_black_24px"/>
+<item android:id = "@+id/info" android:title="About" android:icon="@drawable/ic_info_black_24px"/>
+<item android:id = "@+id/log_out" android:title="Log Out" android:icon="@drawable/ic_power_settings_new_black_24px"/>
+</menu>
